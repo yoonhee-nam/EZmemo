@@ -138,14 +138,14 @@ fun ItemRow(item: Item, onItemEdit: (Item) -> Unit, onItemDelete: (Item) -> Unit
                 IconButton(onClick = { onItemEdit(item) }) {
                     Icon(
                         imageVector = Icons.Filled.Edit,
-                        contentDescription  = "Edit",
+                        contentDescription = "Edit",
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
                 IconButton(onClick = { onItemDelete(item) }) {
                     Icon(
                         imageVector = Icons.Filled.Delete,
-                        contentDescription  = " Delete",
+                        contentDescription = " Delete",
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
@@ -169,10 +169,15 @@ fun ItemAddDialog(onDismiss: () -> Unit, onAddItem: (String) -> Unit) {
                 label = { Text("Item Name") }
             )
         },
-        confirmButton = {
+
+        dismissButton = {
             Button(onClick = onDismiss) {
                 Text("Cancel")
-
+            }
+        },
+        confirmButton = {
+            Button(onClick = { onAddItem(text) }) {
+                Text("Add")
             }
         }
     )
