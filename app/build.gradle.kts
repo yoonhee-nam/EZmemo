@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("androidx.room")
-    id ("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -62,24 +62,25 @@ dependencies {
 
     //room
     val room_version = "2.6.1"
-    val hilt_version = "2.46.1"
+    val hilt_version = "2.48"
 
     implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.5.0")
 
     //hilt
     implementation("com.google.dagger:hilt-android:$hilt_version")
-    kapt("com.google.dagger:hilt-compiler:$hilt_version")
+    ksp("com.google.dagger:hilt-compiler:$hilt_version")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // For instrumentation tests
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hilt_version")
-    kaptAndroidTest("com.google.dagger:hilt-compiler:$hilt_version")
+    kspAndroidTest("com.google.dagger:hilt-compiler:$hilt_version")
 
     // For local unit tests
     testImplementation("com.google.dagger:hilt-android-testing:$hilt_version")
-    kaptTest("com.google.dagger:hilt-compiler:$hilt_version")
+    kspTest("com.google.dagger:hilt-compiler:$hilt_version")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -98,7 +99,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
-}
