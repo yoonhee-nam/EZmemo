@@ -39,7 +39,7 @@ import com.example.ezmemo.viewmodel.ItemViewModel
 
 @Composable
 fun ItemListScreen(viewModel: ItemViewModel) {
-    val items = viewModel.items.collectAsState().value
+    val items by viewModel.items.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
     var currentEditItem: Item? by remember { mutableStateOf<Item?>(null) }
     var itemToDelete by remember { mutableStateOf<Item?>(null) }
@@ -114,7 +114,6 @@ fun ItemListScreen(viewModel: ItemViewModel) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemRow(item: Item, onItemEdit: (Item) -> Unit, onItemDelete: (Item) -> Unit) {
     Card(
